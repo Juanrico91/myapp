@@ -1,5 +1,4 @@
 import React from 'react'
-
 // El componente Cabera no tiene componentes hijos.
 // ESTADO: Cabecera no tiene estado.
 // MÉTODOS: Cabecera no tiene métodos.
@@ -15,8 +14,12 @@ export default function Cabecera(props) {
       <h1>
         Carrito de compras
       </h1>
-      <p>{cartItems.length === 0 && <p>Cantidad de productos: <span> 0</span></p>}</p>
-      <p></p>
+      {cartItems.length === 0 && <p>Cantidad de productos <span>0</span></p>}
+      {cartItems.map((item) => (
+        <p>
+          Cantidad de productos<span>{item.qty}</span>
+        </p>
+      ))}
     </header>
   )
 }

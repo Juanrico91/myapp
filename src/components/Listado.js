@@ -10,11 +10,17 @@ import Item from "./Item"
 
 
 export default function Listado(props) {
-  const {products, onAdd} = props;
+  const {products, onAdd, onRemove, stockItems} = props;
   return (
     <div className='container'>
       {products.map((item) => (
-          <Item key={item.id} product={item} onAdd ={onAdd}></Item>
+          <Item
+            key={item.id}
+            product={item}
+            onAdd ={onAdd}
+            onRemove={onRemove}
+            stockItems = {stockItems}>
+          </Item>
         ))}
     </div>
   )

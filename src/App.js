@@ -13,6 +13,8 @@ import { useState } from "react";
 function App() {
   const {products} = data;
   const [cartItems, setCartItems] = useState([]);
+  const [stockItems, setStockItems] = useState([]);
+
   const onAdd = (product) => {
     const exist = cartItems.find((x) => x.id === product.id);
     if (exist) {
@@ -25,10 +27,30 @@ function App() {
       setCartItems([...cartItems, { ...product, qty: 1 }]);
     }
   };
+  const onRemove = (product) => {
+    const exist = stockItems.find((x) => x.id === product.id);
+    if (exist.stock === 1) {
+      setStockItems(stockItems.filter((x) => x.id !== product.id));
+    } else {
+      setStockItems(
+        stockItems.map((x) =>
+          x.id === product.id ? { ...exist, stock: exist.stock - 1 } : x
+        )
+      );
+    }
+  };
   return (
     <div className="App">
-      <Cabecera cartItems={cartItems}></Cabecera>
-      <Listado onAdd = {onAdd} products = {products}></Listado>
+      <Cabecera
+        onAdd = {onAdd}
+        cartItems={cartItems}>
+      </Cabecera>
+      <Listado
+      onAdd = {onAdd}
+      products = {products}
+      onRemove = {onRemove}
+      stockItems = {stockItems}>
+      </Listado>
     </div>
   );
 }

@@ -10,13 +10,27 @@ import React from 'react'
 //    button       (este boton debe permitir comprar, pero si la cantidad es menor a 0 debe estar deshabilitado y decir "Sin stock")
 
 export default function Item(props) {
-  const { product, onAdd } = props;
+  const { product, stockItems, onAdd, onRemove } = props;
   return (
     <div className='producto'>
       <h3>{product.producto.nombre}</h3>
       <p>{product.producto.descripcion}</p>
-      <h5><span>{product.stock}</span></h5>
-      <button onClick={() => onAdd(product)}>COMPRAR</button>
+      <h5>
+      {<span>En Stock:{product.stock}</span>}
+      {stockItems.map((item) => (
+        <span>
+          En Stock: <span>{item.stock}</span>
+        </span>
+      ))}
+
+      </h5>
+      <button
+        onClick={() => {
+          onAdd(product);
+          onRemove(stockItems);
+          }}>
+          Comprar
+      </button>
     </div>
   )
 }
